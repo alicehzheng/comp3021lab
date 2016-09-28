@@ -2,10 +2,10 @@ package base;
 import java.util.Date;
 
 
-public class Note {
+public class Note implements Comparable<Note>{
 	private Date date;
 	private String title;
-	
+
 	public Note(String t_title){
 		this.title = t_title;
 		date = new Date(System.currentTimeMillis());
@@ -15,6 +15,17 @@ public class Note {
 		return title;
 	}
 
+	public int compareTo(Note o){
+		return this.date.compareTo(o.date) * (-1);
+	}
+	
+	public String toString() {
+		return date.toString() + "\t" + title;
+	}
+	
+	public String getContent(){
+		return " ";
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
