@@ -55,7 +55,8 @@ public class TextNote extends Note implements java.io.Serializable{
 		try{
 			String title = this.getTitle();
 			String filename = title.replaceAll(" ", "_");
-			File file = new File(pathFolder+ File.separator + filename + ".txt");
+			File file = new File(pathFolder + filename + ".txt");
+			System.out.println(file.getAbsolutePath());
 			if(!file.exists()){
 				file.createNewFile();
 				fop = new FileOutputStream(file);
