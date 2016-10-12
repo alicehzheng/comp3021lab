@@ -45,17 +45,22 @@ public class Folder implements Comparable<Folder>, java.io.Serializable{
 				String title = note.getTitle();
 				title = title.toUpperCase();
 				boolean find = true;
-				int i;
-				for(i = 0; i < len - 1; ){
+				int i = 0;
+				while(i < len - 1){
 					if(title.contains(sp[i])){
-						if(sp[i+1].equals("OR"))
-							i += 3;
-						else
-							i++;
+						while(i < len - 1 && sp[i+1].equals("OR"))//skip the remaining "or" of this group
+							i += 2;
+						i++;//go to next group
 					}
 					else{
-						if(sp[i+1].equals("OR") && title.contains(sp[i+2]))
-							i+=3;
+						boolean exit = false;
+						while(i < len - 1 && sp[i+1].equals("OR")){
+							i += 2;
+							if(title.contains(sp[i]))
+								exit = true;
+						}
+						if(exit)
+							i++;
 						else{
 							find = false;
 							break;
@@ -73,17 +78,22 @@ public class Folder implements Comparable<Folder>, java.io.Serializable{
 				String content = note.getContent();
 				content = content.toUpperCase();
 				boolean find = true;
-				int i;
-				for(i = 0; i < len - 1; ){
+				int i = 0;
+				while(i < len - 1){
 					if(title.contains(sp[i])||content.contains(sp[i])){
-						if(sp[i+1].equals("OR"))
-							i += 3;
-						else
-							i++;
+						while(i < len - 1 && sp[i+1].equals("OR"))
+							i += 2;
+						i++;
 					}
 					else{
-						if(sp[i+1].equals("OR") && (title.contains(sp[i+2]) || content.contains(sp[i+2])))
-							i += 3;
+						boolean exit = false;
+						while(i < len - 1 && sp[i+1].equals("OR")){
+							i += 2;
+							if(title.contains(sp[i]) || content.contains(sp[i]))
+								exit = true;
+						}
+						if(exit)
+							i++;
 						else{
 							find = false;
 							break;
